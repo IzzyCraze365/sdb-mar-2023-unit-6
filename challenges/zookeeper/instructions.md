@@ -16,6 +16,8 @@ Note :: You do not need to use bcrypt.
 
 <!-- res.status(500).json({error: error.message}) -->
 
+## Silver
+
 SILVER DESCRIPTION:
 	Complete the bronze level challenge above, but this time 
 	create a '/user/login' endpoint that will let the user send
@@ -25,3 +27,15 @@ SILVER DESCRIPTION:
 	an appropriate status code and an error message should be sent.
 
 	Note :: You do not need to use bcrypt.
+
+## Gold
+
+GOLD DESCRIPTION:
+	Complete the silver level challenge above, but make sure
+    that passwords are saved encrypted.  When the '/user/create'
+    and '/user/login' endpoints send the user information back,
+    make sure that information contains a token using
+    jwt (this uses the jsonwebtoken dependency).
+
+    Note :: You will modify Bronze and Silver to use bcrypt and 
+    implement tokens using jsonwebtoken

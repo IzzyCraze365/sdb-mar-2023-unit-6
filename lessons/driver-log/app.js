@@ -6,6 +6,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose"); //! This is NEW
 const userController = require("./controllers/user.controller");
+const driverlogController = require("./controllers/driverlog.controller");
 
 const PORT = process.env.PORT;
 // "localhost:27017" is what MongoDb says in the Upper-Left Corner
@@ -17,6 +18,9 @@ db.once("open", () => console.log("Connected to the DB")); //! This is NEW
 app.use(express.json());
 
 app.use("/user", userController);
+
+app.use("/log", driverlogController);
+
 app.listen(PORT, () => {
   console.log(`server is running on port: ${PORT}`);
 });

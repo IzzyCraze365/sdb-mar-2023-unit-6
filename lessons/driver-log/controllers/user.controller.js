@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // ? http://localhost:4000/user/signup
 router.post("/signup", async (req, res) => {
@@ -16,7 +17,11 @@ router.post("/signup", async (req, res) => {
     // 2. Save the data to the DB
     const newUser = await user.save();
 
-    res.json({ user: newUser, message: "works from signup" });
+    let token = jwt.sign({ id: newUser._id }, "i_am_secret", {
+      expiresIn: 60 * 60 * 48,
+    });
+
+    res.json({ user: newUser, message: "new user created", token: token });
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -38,9 +43,18 @@ router.post("/login", async (req, res) => {
         user.password
       );
 
-      console.log(passwordMatch);
+      let token = jwt.sign({ id: user._id }, "i_am_secret", {
+        expiresIn: 60 * 60 * 48,
+        algorithm: "H512",
+      });
+
+      res.json({
+        message: passwordMatch ? "passwords matched" : "passwords do not match",
+        token: passwordMatch ? token : "invalid token",
+      });
+    } else {
+      res.json({ message: "User does not exist" });
     }
-    res.json({ message: "works from login" });
   } catch (error) {
     res.json({ message: error.message });
   }

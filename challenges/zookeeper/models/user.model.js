@@ -1,4 +1,4 @@
-// Unit 6 - Day 026
+// Unit 6 - Day 026 & 027
 // Challenge "Zookeeper"
 // Team "ALJI"
 
