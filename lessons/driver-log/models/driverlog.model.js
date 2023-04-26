@@ -20,6 +20,10 @@ const DriverLogSchema = new mongoose.Schema({
   licensePlate: {
     type: String,
   },
+  owner_id: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+  }, // This is our foreign key to link User and Log
 });
 
 module.exports = mongoose.model("DriverLog", DriverLogSchema);

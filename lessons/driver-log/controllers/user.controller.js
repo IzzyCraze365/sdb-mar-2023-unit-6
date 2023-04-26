@@ -45,7 +45,7 @@ router.post("/login", async (req, res) => {
 
       let token = jwt.sign({ id: user._id }, "i_am_secret", {
         expiresIn: 60 * 60 * 48,
-        algorithm: "H512",
+        //algorithm: "H512", //! This is to change off of a standard algorithm.
       });
 
       res.json({
