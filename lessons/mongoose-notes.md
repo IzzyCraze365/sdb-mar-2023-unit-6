@@ -6,6 +6,10 @@
 
 `find()` is a function that will return all documents according to the conditions. If you leave the paramenter blank you will return all documents.
 
+## findById()
+
+`findById()` is a function that will return an object that matches the conditions.
+
 ## deleteOne()
 
 `deleteOne()` is a function that will delete the first document that satisfying the condition. Insert an object in the parameter to give it a condition.
