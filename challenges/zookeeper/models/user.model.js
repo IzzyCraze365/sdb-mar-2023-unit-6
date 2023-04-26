@@ -1,4 +1,4 @@
-// Unit 6 - Day 026 & 027
+// Unit 6 - Day 026 & 027 & 028
 // Challenge "Zookeeper"
 // Team "ALJI"
 
@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true, // This is by default set to "false"
+    unique: true,
   },
   password: {
     type: String,

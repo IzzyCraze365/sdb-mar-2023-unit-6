@@ -2,8 +2,9 @@ const router = require("express").Router();
 //const { default: mongoose } = require("mongoose");
 const validateSession = require("../middleware/validate-session");
 const DriverLog = require("../models/driverlog.model");
-// http://localhost:4000/log/create
 
+
+// http://localhost:4000/log/create
 router.post("/create", validateSession, async (req, res) => {
   try {
     const { mode, totalHours, totalMiles, licensePlate } = req.body;

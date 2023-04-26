@@ -19,7 +19,7 @@ router.post("/create", async (req, res) => {
     const newUser = await user.save();
 
     let token = jwt.sign({ id: newUser._id }, "best_animal_is_doggo", {
-      expiresIn: 60 * 60, //Expires in 1 hour
+      expiresIn: 60 * 60 *2, //Expires in 2 hour
     });
 
     res
@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
       );
 
       let token = jwt.sign({ id: user._id }, "best_animal_is_doggo", {
-        expiresIn: 60 * 60, // Expires in 1 hour
+        expiresIn: 60 * 60* 2, // Expires in 2 hours
         //algorithm: "H512",
       });
 

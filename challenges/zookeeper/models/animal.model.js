@@ -1,4 +1,4 @@
-// Unit 6 - Day 027
+// Unit 6 - Day 027 & 028
 // Challenge "Zookeeper"
 // Team "ALJI"
 
@@ -17,6 +17,10 @@ const AnimalSchema = new mongoose.Schema({
     type: Boolean,
     required: true, // This is by default set to "false"
   },
+  user_id: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+  }, // This is our foreign key to link User and Log
 });
 
 module.exports = mongoose.model("Animal", AnimalSchema);
