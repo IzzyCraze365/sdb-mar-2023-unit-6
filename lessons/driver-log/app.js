@@ -5,6 +5,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose"); //! This is NEW
+const cors = require("cors"); // added Week 7, //!Day 033
 const userController = require("./controllers/user.controller");
 const driverlogController = require("./controllers/driverlog.controller");
 
@@ -15,6 +16,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/driverlog-db"); //This provides a wo
 const db = mongoose.connection; //! This is NEW
 db.once("open", () => console.log("Connected to the DB")); //! This is NEW
 
+app.use(cors()); // added Week 7, //!Day 033
 app.use(express.json());
 
 app.use("/user", userController);
