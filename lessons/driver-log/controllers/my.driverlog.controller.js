@@ -1,8 +1,10 @@
 const router = require("express").Router();
+//const { default: mongoose } = require("mongoose");
 const validateSession = require("../middleware/validate-session");
 const DriverLog = require("../models/driverlog.model");
-// http://localhost:4000/log/create
 
+
+// http://localhost:4000/log/create
 router.post("/create", validateSession, async (req, res) => {
   try {
     const { mode, totalHours, totalMiles, licensePlate } = req.body;
@@ -40,24 +42,36 @@ router.get("/view-all", validateSession, async (req, res) => {
   }
 });
 
+// http://localhost:4000/log/view-all/mode=
+//You can add conditions to add specifics to functionality
+/* 
+router.get("/view-all", async (req, res) => {
+  const dvivingMode = req.query.mode;
+  try {
+    let logs = await DriverLog.find({mode: dvivingMode});
+
+    res.json({ message: "works from view all", log: logs });
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+ */
+
 // http://localhost:4000/log/delete/:id
 router.delete("/delete/:id", validateSession, async (req, res) => {
   try {
     const id = req.params.id;
 
-    const documentsFound = await DriverLog.find({
-      _id: req.params.id,
-      owner_id: req.user._id,
-    });
-
-    if (documentsFound.length === 0) {
+    if (
+      !(await DriverLog.find({ _id: req.params.id, owner_id: req.user._id }))
+    ) {
       throw Error("Not authorized to delete entry");
     }
     // console.log(id);
     const removedLog = await DriverLog.deleteOne({
       _id: id,
       owner_id: req.user._id,
-    }).leng;
+    });
     console.log(removedLog);
     res.json({
       message:
@@ -100,20 +114,21 @@ router.patch("/update/:id", validateSession, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// http://localhost:4000/log/view-owner
 
+//  http://localhost:4000/log/view-owner
 router.get("/view-owner", validateSession, async (req, res) => {
   try {
-    let logs = await DriverLog.find({ owner_id: req.user._id }).populate(
+    const log = await DriverLog.find({owner_id: req.user._id}).populate(
       "owner_id",
       "firstname lastname"
     );
 
-    res.json({ message: "works from view owner", log: logs });
+    res.json({ message: "works from view owner", log: log });
   } catch (error) {
     res.json({ message: error.message });
   }
 });
+
 
 //  http://localhost:4000/log/:id
 router.get("/:id", async (req, res) => {
@@ -125,4 +140,5 @@ router.get("/:id", async (req, res) => {
     res.json({ message: error.message });
   }
 });
+
 module.exports = router;
